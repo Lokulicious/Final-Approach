@@ -11,8 +11,12 @@ public class MyGame : Game
 	{
 		Player player = new Player();
 		AddChild(player);
-		Platform platform = new Platform();
+
+		Platform platform = new Platform(player);
 		AddChild(platform);
+
+		Crate crate = new Crate(player);
+		AddChild(crate);
     }
 
     void Update()

@@ -14,11 +14,13 @@ namespace GXPEngine.Core
 		}
 		
 
-		public void Substract(Vector2 vector1, Vector2 vector2)
+/*		public void Substract(Vector2 vector1, Vector2 vector2)
 		{
 			x = vector1.x - vector2.x;
 			y = vector1.y - vector2.y;
-        }
+        }*/
+
+
 
 
 

@@ -10,7 +10,7 @@ using GXPEngine.Core;
     {
     private Player player;
 
-    public Platform() : base("checkers.png")
+    public Platform(Player player) : base("colors.png")
     {
         SetOrigin(0, height / 2);
         this.x = game.width / 2 - width * 5;
@@ -33,6 +33,12 @@ using GXPEngine.Core;
             {
                 player.y = this.y - 64;
             }*/
+        }
+
+        if (other is Crate)
+        {
+            Crate crate = other as Crate;
+            crate.isGrounded = true;
         }
     }
 

@@ -24,8 +24,8 @@ using GXPEngine.Core;
     float airAccel; //accel in air
     float decel; //decel when not trying to move
     float jumpHeight; //max jump height
-    public float gravity;
-    public Vector2 Velocity; // velocity of character
+    public float gravity; //gravity of the player
+    public Vector2 Velocity; //velocity of character
 
     public Player() : base("square.png") 
     {
@@ -111,10 +111,17 @@ using GXPEngine.Core;
 
     void magnetism()
     {
-        if (Input.GetKeyDown(Key.F))
+        if (Input.GetKey(Key.R))
         {
-            isPulling = false;
+            isActive = true;
         }
+        else
+        {
+            isActive = false;
+        }
+
+
+        Console.WriteLine(isActive);
 
         if (isActive)
         {
@@ -127,9 +134,6 @@ using GXPEngine.Core;
                 isPulling = false;
             }
         }
-
-
-        Console.WriteLine(isPulling);
     }
 
 
