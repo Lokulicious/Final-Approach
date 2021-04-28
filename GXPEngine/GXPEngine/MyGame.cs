@@ -4,9 +4,15 @@ using GXPEngine;
 
 public class MyGame : Game
 {
+
+	
+
 	public MyGame() : base(800, 600, false)
 	{
-
+		Player player = new Player();
+		AddChild(player);
+		Platform platform = new Platform();
+		AddChild(platform);
     }
 
     void Update()
@@ -16,6 +22,6 @@ public class MyGame : Game
 
 	static void Main()
 	{
-
+		new MyGame().Start();
 	}
 }
