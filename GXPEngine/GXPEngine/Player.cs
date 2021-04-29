@@ -15,6 +15,9 @@ using GXPEngine.Core;
     public bool isPulling;
     public bool isPushing;
 
+    Sound jumpSound;
+    SoundChannel vfx;
+
 
     //movement
 
@@ -35,6 +38,14 @@ using GXPEngine.Core;
         SetOrigin(width / 2, height / 2);
         this.x = game.width / 2;
         this.y = game.height / 2;
+
+
+        vfx = new SoundChannel(0);
+
+        jumpSound = new Sound("Jump_Sound.wav", false, false);
+        
+
+
 
         isActive = true;
         isPulling = true;
@@ -101,6 +112,7 @@ using GXPEngine.Core;
             if (Input.GetKeyDown(Key.SPACE))
             {
                 Velocity.y = -Mathf.Sqrt(2 * jumpHeight * gravity);
+                jumpSound.Play(false, 0);
             }
         }
         else
