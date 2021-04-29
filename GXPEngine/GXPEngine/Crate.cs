@@ -50,8 +50,6 @@ using GXPEngine.Core;
 
         void movement()
         {
-
-
             if (player.isActive && !isTouching)
             {
                 if (player.isPulling)
@@ -59,9 +57,6 @@ using GXPEngine.Core;
                     if (this.x < player.x)
                     {
                         velocity.x = 1;
-
-                        Console.WriteLine("Pulling");
-                        
                     }
                     else if (this.x > player.x)
                     {
@@ -111,7 +106,6 @@ using GXPEngine.Core;
             isTouching = true;
             Player player = Other as Player;
             velocity.x = 0;
-            this.y = player.y;
 /*            player.Velocity.x = 0;*/
         }
     }

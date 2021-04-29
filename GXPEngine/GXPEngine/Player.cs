@@ -37,7 +37,7 @@ using GXPEngine.Core;
         isPulling = true;
 
 
-        isGrounded = false;
+        isGrounded = true;
         speed = 0;
         walkAccel = 75;
         airAccel = 30;
@@ -56,11 +56,11 @@ using GXPEngine.Core;
 
     void movement()
     {
-
-
         if (isGrounded)
         {
             Velocity.y = 0f;
+
+            Console.WriteLine("grounded");
 
             if (Input.GetKeyDown(Key.SPACE))
             {
@@ -72,7 +72,8 @@ using GXPEngine.Core;
             Velocity.y += gravity;
         }
 
-        isGrounded = false;
+
+
 
         float acceleration = isGrounded ? walkAccel : airAccel;
         float deceleration = isGrounded ? decel : 0f;
@@ -102,9 +103,11 @@ using GXPEngine.Core;
             }
 
         }
- 
+
+
 
         Translate(Velocity.x * Time.deltaTime, Velocity.y * Time.deltaTime);
+        
     }
 
 

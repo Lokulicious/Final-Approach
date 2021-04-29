@@ -10,6 +10,8 @@ using GXPEngine.Core;
     {
     private Player player;
 
+    public bool platformCollision;
+
     public Platform(Player player) : base("colors.png")
     {
         SetOrigin(0, height / 2);
@@ -22,13 +24,18 @@ using GXPEngine.Core;
 
 
 
+    void Update()
+    {
+
+    }
+
+
     void OnCollision(GameObject other)
     {
         if (other is Player)
         {
             Player player = other as Player;
             player.isGrounded = true;
-
 /*            if (player.y + 32 < this.y)
             {
                 player.y = this.y - 64;
