@@ -14,6 +14,7 @@ using GXPEngine.Core;
     public bool isActive;
     public bool isPulling;
     public bool isPushing;
+    public bool polaritySwitch;
 
     Sound jumpSound;
     SoundChannel vfx;
@@ -29,7 +30,8 @@ using GXPEngine.Core;
     float jumpHeight; //max jump height
     public float gravity; //gravity of the player
     public Vector2 Velocity; //velocity of character
-    public float charge; //the charge of the magnet
+    public float pullCharge; //the charge of the magnet
+    public float pushCharge;
     float discharge; //the amount the charge goes down by every tick
 
 
@@ -58,7 +60,8 @@ using GXPEngine.Core;
         decel = 0.5f;
         jumpHeight = 8;
         gravity = 0.05f;
-        charge = 100f;
+        pullCharge = 100f;
+        pushCharge = 100f;
         discharge = 1f;
     }
 
@@ -67,14 +70,16 @@ using GXPEngine.Core;
     {
         magnetism();
         movement();
-
     }
-
 
 
 
     void magnetism()
     {
+
+
+        float charge = isPulling ? pullCharge : pushCharge;
+
         if (Input.GetKey(Key.R) && isGrounded && charge > 0f)
         {
             isActive = true;
@@ -91,12 +96,29 @@ using GXPEngine.Core;
             if (isPulling)
             {
                 isPushing = false;
+                pullCharge -= discharge;
             }
             else if (isPushing)
             {
                 isPulling = false;
+                pushCharge -= discharge;
             }
-            charge -= discharge;
+
+        }
+
+
+
+        if (polaritySwitch && isPulling)
+        {
+            isPulling = false;
+            isPushing = true;
+            polaritySwitch = false;
+        }
+        else if (polaritySwitch && isPushing)
+        {
+            isPushing = false;
+            isPulling = true;
+            polaritySwitch = false;
         }
     }
 

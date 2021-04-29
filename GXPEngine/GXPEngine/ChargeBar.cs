@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GXPEngine;
 
 namespace GXPEngine
 {
@@ -9,9 +10,11 @@ namespace GXPEngine
     {
         private Player player;
         float barScaler;
+        float charge;
+        bool isPullBar;
 
 
-        public ChargeBar(Player player) : base("Bar.png")
+        public ChargeBar(Player player, bool isPullBar, float y) : base("Bar.png")
         {
             this.player = player;
 
@@ -19,15 +22,24 @@ namespace GXPEngine
             scaleY = 0.1f;
 
             this.x = 50;
-            this.y = 50;
+            this.y = y;
+
+            this.isPullBar = isPullBar;
         }
 
 
         void Update()
         {
+            if (isPullBar)
+            {
+                charge = player.pullCharge;
+            }
+            else
+            {
+                charge = player.pushCharge;
+            }
 
-
-            barScaler = 0.1f * player.charge / 100;
+            barScaler = 0.1f * charge / 100;
             scaleX = barScaler;
         }
     }

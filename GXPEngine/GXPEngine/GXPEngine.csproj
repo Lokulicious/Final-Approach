@@ -80,5 +80,6 @@
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PolaritySwitcher.cs" />
   </ItemGroup>
 </Project>

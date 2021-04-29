@@ -45,6 +45,7 @@ using GXPEngine.Core;
         {
             movement();
             isTouching = false;
+        isGrounded = false;
         }
 
 
@@ -61,6 +62,17 @@ using GXPEngine.Core;
                     else if (this.x > player.x)
                     {
                         velocity.x = -1;
+                    }
+                }
+                else if (player.isPushing)
+                {
+                    if (this.x < player.x)
+                    {
+                        velocity.x = -1;
+                    }
+                    else if (this.x > player.x)
+                    {
+                        velocity.x = 1;
                     }
                 }
             }
