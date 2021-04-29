@@ -12,10 +12,10 @@ public class MyGame : Game
 		AddChild(player);
 
 
-		ChargeBar PullChargeBar = new ChargeBar(player, true, 50);
+		ChargeBar PullChargeBar = new ChargeBar(player, true, 50, "barblue.png");
 		AddChild(PullChargeBar);
 		
-		ChargeBar PushChargeBar = new ChargeBar(player, false, 100);
+		ChargeBar PushChargeBar = new ChargeBar(player, false, 100, "barred.png");
 		AddChild(PushChargeBar);
 
 		Platform platform = new Platform(player, 250, 0);
@@ -30,7 +30,7 @@ public class MyGame : Game
 		Crate crate2 = new Crate(player, -250, 0);
 		AddChild(crate2);
 
-		PolaritySwitcher polarity = new PolaritySwitcher(player, game.width / 4, game.height / 2);
+		PolaritySwitcher polarity = new PolaritySwitcher(player, (game.width / 4) * 4, game.height / 2);
 		AddChild(polarity);
 	}
 

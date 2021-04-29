@@ -12,9 +12,9 @@ namespace GXPEngine
         float barScaler;
         float charge;
         bool isPullBar;
+        string color;
 
-
-        public ChargeBar(Player player, bool isPullBar, float y) : base("Bar.png")
+        public ChargeBar(Player player, bool isPullBar, float y, string color) : base(color)
         {
             this.player = player;
 
@@ -23,8 +23,9 @@ namespace GXPEngine
 
             this.x = 50;
             this.y = y;
-
             this.isPullBar = isPullBar;
+
+            this.color = color;
         }
 
 
