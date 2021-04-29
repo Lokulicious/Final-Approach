@@ -26,6 +26,9 @@ using GXPEngine.Core;
     float jumpHeight; //max jump height
     public float gravity; //gravity of the player
     public Vector2 Velocity; //velocity of character
+    public float charge; //the charge of the magnet
+    float discharge; //the amount the charge goes down by every tick
+
 
     public Player() : base("square.png") 
     {
@@ -44,13 +47,46 @@ using GXPEngine.Core;
         decel = 0.5f;
         jumpHeight = 8;
         gravity = 0.05f;
+        charge = 100f;
+        discharge = 1f;
     }
 
 
     void Update()
     {
-        movement();
         magnetism();
+        movement();
+
+    }
+
+
+
+
+    void magnetism()
+    {
+        if (Input.GetKey(Key.R) && isGrounded && charge > 0f)
+        {
+            isActive = true;
+        }
+        else
+        {
+            isActive = false;
+        }
+
+
+
+        if (isActive)
+        {
+            if (isPulling)
+            {
+                isPushing = false;
+            }
+            else if (isPushing)
+            {
+                isPulling = false;
+            }
+            charge -= discharge;
+        }
     }
 
 
@@ -107,37 +143,12 @@ using GXPEngine.Core;
 
 
         Translate(Velocity.x * Time.deltaTime, Velocity.y * Time.deltaTime);
-        
+        isGrounded = false;
     }
 
 
 
-    void magnetism()
-    {
-        if (Input.GetKey(Key.R))
-        {
-            isActive = true;
-        }
-        else
-        {
-            isActive = false;
-        }
 
-
-        Console.WriteLine(isActive);
-
-        if (isActive)
-        {
-            if (isPulling)
-            {
-                isPushing = false;
-            }
-            else if (isPushing)
-            {
-                isPulling = false;
-            }
-        }
-    }
 
 
 

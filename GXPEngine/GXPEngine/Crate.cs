@@ -21,15 +21,15 @@ using GXPEngine.Core;
 
     public Vector2 velocity;
 
-        public Crate(Player player) : base("square.png")
+        public Crate(Player player, float x, float y) : base("square.png")
         {
             SetOrigin(width / 2, height / 2);
             gravity = 0.05f;
 
         isTouching = false;
 
-        this.x = game.width / 2 + 100;
-        this.y = game.height / 2;
+        this.x = x + game.width / 2 + 100;
+        this.y = y + game.height / 2;
 
         acceleration = 0.2f;
         this.player = player;
@@ -106,7 +106,19 @@ using GXPEngine.Core;
             isTouching = true;
             Player player = Other as Player;
             velocity.x = 0;
-/*            player.Velocity.x = 0;*/
+            /*            player.Velocity.x = 0;*/
+            if (this.y > player.y)
+            {
+                player.isGrounded = true;
+            }
+
+        }
+
+        if (Other is Crate)
+        {
+            isGrounded = true;
+            this.velocity.x = 0;
+            this.velocity.y = 0;
         }
     }
 

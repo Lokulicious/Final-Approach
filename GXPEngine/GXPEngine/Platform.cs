@@ -12,11 +12,11 @@ using GXPEngine.Core;
 
     public bool platformCollision;
 
-    public Platform(Player player) : base("colors.png")
+    public Platform(Player player, float x, float y) : base("colors.png")
     {
         SetOrigin(0, height / 2);
-        this.x = game.width / 2 - width * 5;
-        this.y = game.height / 2 + 90;
+        this.x = x + game.width / 2 - width * 5;
+        this.y = y + game.height / 2 + 90;
         SetScaleXY(10, 1);
 
         this.player = player;
