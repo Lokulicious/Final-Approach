@@ -80,8 +80,8 @@ namespace Physics {
 				}
 				return null;
 			} else {
-				throw new NotImplementedException(); // For now...
-			}
+                throw new NotImplementedException(); // For now...
+            }
 		}
 
 		CollisionInfo GetEarliestCollision(HorizontalLineSegment other, Vec2 velocity) {

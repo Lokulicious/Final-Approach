@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
-using GXPEngine.Core;
+using Physics;
 
 
     class Player : Sprite
@@ -20,7 +20,7 @@ using GXPEngine.Core;
     SoundChannel vfx;
 
 
-    //movement
+    //Movement
 
     public bool isGrounded; //checks if player is on the ground
     public float speed; //max speed
@@ -29,24 +29,32 @@ using GXPEngine.Core;
     float decel; //decel when not trying to move
     float jumpHeight; //max jump height
     public float gravity; //gravity of the player
-    public Vector2 Velocity; //velocity of character
+    public Vec2 Velocity; //velocity of character
     public float pullCharge; //the charge of the magnet
     public float pushCharge;
     float discharge; //the amount the charge goes down by every tick
 
 
-    public Player() : base("square.png") 
+    //Collisions
+    Collider playerCollider;
+    ColliderManager engine;
+
+
+    public Player(Vec2 startPosition) : base("square.png") 
     {
         SetOrigin(width / 2, height / 2);
-        this.x = game.width / 2;
-        this.y = game.height / 2;
+        this.x = startPosition.x;
+        this.y = startPosition.y;
 
 
         vfx = new SoundChannel(0);
 
         jumpSound = new Sound("Jump_Sound.wav", false, false);
-        
 
+
+        playerCollider = new AABB(this, startPosition, width / 2, height / 2);
+        engine = ColliderManager.main;
+        engine.AddTriggerCollider(playerCollider);
 
 
         isActive = true;
@@ -57,9 +65,9 @@ using GXPEngine.Core;
         speed = 0;
         walkAccel = 75;
         airAccel = 30;
-        decel = 0.5f;
+        decel = 0.8f;
         jumpHeight = 8;
-        gravity = 0.05f;
+        gravity = 0.35f;
         pullCharge = 100f;
         pushCharge = 100f;
         discharge = 1f;
@@ -127,14 +135,14 @@ using GXPEngine.Core;
     {
         if (isGrounded)
         {
-            Velocity.y = 0f;
-
+            Velocity.y = 0;
             Console.WriteLine("grounded");
 
-            if (Input.GetKeyDown(Key.SPACE))
+            if (Input.GetKeyDown(Key.SPACE)) 
             {
                 Velocity.y = -Mathf.Sqrt(2 * jumpHeight * gravity);
                 jumpSound.Play(false, 0);
+                Console.WriteLine("Jumping");
             }
         }
         else
@@ -151,12 +159,12 @@ using GXPEngine.Core;
         if (Input.GetKey(Key.A))
         {
             speed = -3f;
-            Velocity.x = -1;
+            Velocity.x = -10;
         }
         else if (Input.GetKey(Key.D))
         {
             speed = 3f;
-            Velocity.x = 1;
+            Velocity.x = 10;
         }
 
 
@@ -175,8 +183,18 @@ using GXPEngine.Core;
         }
 
 
+        engine.MoveUntilCollision(playerCollider, new Vec2(Velocity.x, 0)); //move collider on x axis
+        engine.MoveUntilCollision(playerCollider, new Vec2(0, Velocity.y)); //move collider on y axis
 
-        Translate(Velocity.x * Time.deltaTime, Velocity.y * Time.deltaTime);
+        x = playerCollider.position.x;
+        y = playerCollider.position.y;
+
+        /*        Translate(Velocity.x * Time.deltaTime, Velocity.y * Time.deltaTime); //move player
+
+                playerCollider.position.x = x;
+                playerCollider.position.y = y;*/
+
+
         isGrounded = false;
     }
 

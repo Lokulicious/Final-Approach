@@ -10,6 +10,9 @@ using GXPEngine.Core;
 
     private Player player;
 
+    Collider crateCollider;
+    CollisionManager engine;
+
 
     public bool isGrounded; //checks if player is on the ground
     public float speed; //max speed

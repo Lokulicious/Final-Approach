@@ -8,7 +8,7 @@ public class MyGame : Game
 
 	public MyGame() : base(800, 600, false)
 	{
-		Player player = new Player();
+		Player player = new Player(new Vec2(game.width / 2, 200));
 		AddChild(player);
 
 
@@ -18,16 +18,16 @@ public class MyGame : Game
 		ChargeBar PushChargeBar = new ChargeBar(player, false, 100, "barred.png");
 		AddChild(PushChargeBar);
 
-		Platform platform = new Platform(player, 250, 0);
+		Platform platform = new Platform(player, new Vec2(250, 300));
 		AddChild(platform);
 		
-		Platform platform2 = new Platform(player, -150, 200);
+		Platform platform2 = new Platform(player, new Vec2(600, 500));
 		AddChild(platform2);
 
-		Crate crate = new Crate(player, 0, 0);
+		Crate crate = new Crate(player, 0, -100);
 		AddChild(crate);
 
-		Crate crate2 = new Crate(player, -250, 0);
+		Crate crate2 = new Crate(player, -250, -100);
 		AddChild(crate2);
 
 		PolaritySwitcher polarity = new PolaritySwitcher(player, (game.width / 4) * 4, game.height / 2);
