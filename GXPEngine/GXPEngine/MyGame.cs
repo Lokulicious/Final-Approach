@@ -18,10 +18,10 @@ public class MyGame : Game
 		ChargeBar PushChargeBar = new ChargeBar(player, false, 100, "barred.png");
 		AddChild(PushChargeBar);
 
-		Platform platform = new Platform(player, new Vec2(250, 300));
+		Platform platform = new Platform(player, new Vec2(250, 300), new Vec2(250, 300));
 		AddChild(platform);
 		
-		Platform platform2 = new Platform(player, new Vec2(600, 500));
+		Platform platform2 = new Platform(player, new Vec2(600, 500), new Vec2(600, 500));
 		AddChild(platform2);
 
 		Crate crate = new Crate(player, 0, -100);
