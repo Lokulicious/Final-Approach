@@ -9,6 +9,8 @@ using GXPEngine.Core;
     class Player : Sprite
     {
 
+    public Collider playerCollider;
+    CollisionManager engine;
 
 
     public bool isActive;
@@ -45,8 +47,10 @@ using GXPEngine.Core;
         vfx = new SoundChannel(0);
 
         jumpSound = new Sound("Jump_Sound.wav", false, false);
-        
 
+
+        playerCollider = new BoxCollider(this);
+        engine = new CollisionManager();
 
 
         isActive = true;
@@ -175,8 +179,10 @@ using GXPEngine.Core;
         }
 
 
+        MoveUntilCollision(Velocity.x, 0);
+        MoveUntilCollision(0, Velocity.y);
 
-        Translate(Velocity.x * Time.deltaTime, Velocity.y * Time.deltaTime);
+/*        Translate(Velocity.x * Time.deltaTime, Velocity.y * Time.deltaTime);*/
         isGrounded = false;
     }
 

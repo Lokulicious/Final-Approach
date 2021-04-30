@@ -12,6 +12,10 @@ using GXPEngine.Core;
 
     public bool platformCollision;
 
+    Collider platformCollider;
+    CollisionManager engine;
+
+
     public Platform(Player player, float x, float y) : base("colors.png")
     {
         SetOrigin(0, height / 2);
@@ -20,13 +24,26 @@ using GXPEngine.Core;
         SetScaleXY(10, 1);
 
         this.player = player;
+
+        platformCollider = new BoxCollider(this);
+        engine = new CollisionManager();
     }
 
 
 
     void Update()
     {
+        GroundTest();
+    }
 
+
+    void GroundTest()
+    {
+        if (HitTest(player.playerCollider)/* && player.y > this.y*/)
+        {
+            player.isGrounded = true;
+            Console.WriteLine("grounded");
+        }
     }
 
 
