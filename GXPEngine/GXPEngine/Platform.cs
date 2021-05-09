@@ -13,34 +13,22 @@ using Physics;
     public bool platformCollision;
 
     Collider platformCollider;
-    Collider groundCheck;
     ColliderManager engine;
 
 
-
-    public Platform(Player player, Vec2 position, Vec2 groundPos) : base("colors.png")
+    public Platform(Player player, Vec2 position) : base("colors.png")
     {
         SetOrigin(width / 2, height / 2);
         this.x = position.x;
         this.y = position.y;
-
-        float colliderWidth = (width / 2) - 20;
-        float colliderHeight = (height / 2) - 20;
-
-
-        groundPos.x = position.x - width / 2;
-        groundPos.y = position.y - (height / 2 + 10);
-
         SetScaleXY(10, 1);
 
         this.player = player;
 
 
-        platformCollider = new AABB(this, position, colliderWidth, colliderHeight);
-        groundCheck = new HorizontalLineSegment(this, groundPos, width);
+        platformCollider = new AABB(this, position, width / 2, height / 2);
         engine = ColliderManager.main;
         engine.AddSolidCollider(platformCollider);
-        engine.AddTriggerCollider(groundCheck);
     }
 
 
@@ -54,7 +42,7 @@ using Physics;
 
     void checkPlayerCollision()
     {
-        List<Collider> overlaps = engine.GetOverlaps(groundCheck);
+        List<Collider> overlaps = engine.GetOverlaps(platformCollider);
         foreach (Collider col in overlaps)
         {
             Console.WriteLine(col);
@@ -73,9 +61,6 @@ using Physics;
         {
             Player player = other as Player;
             player.isGrounded = true;
-
-            Console.WriteLine("Player Collision");
-
 /*            if (player.y + 32 < this.y)
             {
                 player.y = this.y - 64;
