@@ -39,25 +39,28 @@ using GXPEngine.Core;
 
     void GroundTest()
     {
-        if (HitTest(player.playerCollider)/* && player.y > this.y*/)
+        if (HitTest(player)/* && player.y > this.y*/)
         {
             player.isGrounded = true;
             Console.WriteLine("grounded");
-        }
+        }   
     }
 
 
     void OnCollision(GameObject other)
     {
-        if (other is Player)
+/*        if (other is Player)
         {
+
             Player player = other as Player;
             player.isGrounded = true;
-/*            if (player.y + 32 < this.y)
+
+            Console.WriteLine("isGrounded = " + player.isGrounded);
+*//*            if (player.y + 32 < this.y)
             {
                 player.y = this.y - 64;
-            }*/
-        }
+            }*//*
+        }*/
 
         if (other is Crate)
         {
@@ -69,4 +72,21 @@ using GXPEngine.Core;
 
 
 
+    bool HitTest(Collider other)
+    {
+        if (other == player.playerCollider)
+        {
+/*            Player player = other as Player;*/
+            player.isGrounded = true;
+            Console.WriteLine("grounded");
+            return true;
+        }
+        return false;
     }
+
+
+
+
+
+
+}
