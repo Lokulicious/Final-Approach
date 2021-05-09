@@ -10,7 +10,6 @@ using Physics;
     {
     private Player player;
 
-    public bool platformCollision;
 
     Collider platformCollider;
     ColliderManager engine;
@@ -23,48 +22,29 @@ using Physics;
         this.y = position.y;
         SetScaleXY(10, 1);
 
+
+        float colliderWidth = (width / 2);
+        float colliderHeight = (height / 2) - 2;
+
         this.player = player;
 
 
-        platformCollider = new AABB(this, position, width / 2, height / 2);
+        platformCollider = new AABB(this, position, colliderWidth, colliderHeight);
         engine = ColliderManager.main;
         engine.AddSolidCollider(platformCollider);
     }
 
 
 
-    void Update()
-    {
-        checkPlayerCollision();
-    }
 
-
-
-    void checkPlayerCollision()
-    {
-        List<Collider> overlaps = engine.GetOverlaps(platformCollider);
-        foreach (Collider col in overlaps)
-        {
-            Console.WriteLine(col);
-            if (col.owner is Player/* && !player.isGrounded*/)
-            {
-                player.isGrounded = true;
-                Console.WriteLine("Grounded");
-            }
-        }
-    }
 
 
     void OnCollision(GameObject other)
     {
-        if (other is Player)
+        if (other is Player && other.y < this.y)
         {
             Player player = other as Player;
             player.isGrounded = true;
-/*            if (player.y + 32 < this.y)
-            {
-                player.y = this.y - 64;
-            }*/
         }
 
         if (other is Crate)

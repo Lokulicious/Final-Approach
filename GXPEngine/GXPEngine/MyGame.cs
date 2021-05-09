@@ -24,10 +24,10 @@ public class MyGame : Game
 		Platform platform2 = new Platform(player, new Vec2(600, 500));
 		AddChild(platform2);
 
-		Crate crate = new Crate(player, 0, -100);
+		Crate crate = new Crate(player, new Vec2(0, -100));
 		AddChild(crate);
 
-		Crate crate2 = new Crate(player, -250, -100);
+		Crate crate2 = new Crate(player, new Vec2(-250, -100));
 		AddChild(crate2);
 
 		PolaritySwitcher polarity = new PolaritySwitcher(player, (game.width / 4) * 4, game.height / 2);

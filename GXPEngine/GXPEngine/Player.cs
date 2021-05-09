@@ -66,7 +66,7 @@ using Physics;
         walkAccel = 75;
         airAccel = 30;
         decel = 0.8f;
-        jumpHeight = 8;
+        jumpHeight = 100;
         gravity = 0.35f;
         pullCharge = 100f;
         pushCharge = 100f;
@@ -135,7 +135,6 @@ using Physics;
     {
         if (isGrounded)
         {
-            Velocity.y = 0;
             Console.WriteLine("grounded");
 
             if (Input.GetKeyDown(Key.SPACE)) 

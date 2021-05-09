@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
-using GXPEngine.Core;
+using Physics;
 
     class Crate : Sprite
     {
@@ -11,7 +11,7 @@ using GXPEngine.Core;
     private Player player;
 
     Collider crateCollider;
-    CollisionManager engine;
+    ColliderManager engine;
 
 
     public bool isGrounded; //checks if player is on the ground
@@ -22,9 +22,9 @@ using GXPEngine.Core;
     public float gravity;
     float acceleration;
 
-    public Vector2 velocity;
+    public Vec2 velocity;
 
-        public Crate(Player player, float x, float y) : base("square.png")
+        public Crate(Player player, Vec2 position) : base("square.png")
         {
         SetOrigin(width / 2, height / 2);
         gravity = 0.05f;
@@ -32,8 +32,16 @@ using GXPEngine.Core;
         isTouching = false;
 
         pushStart = false;
-        this.x = x + game.width / 2 + 100;
-        this.y = y + game.height / 2;
+
+
+        this.x = position.x;
+        this.y = position.y;
+
+        /*        this.x = x + game.width / 2 + 100;
+                this.y = y + game.height / 2;*/
+
+        float colliderWidth = (width / 2);
+        float colliderHeight = (height / 2) - 2;
 
         acceleration = 0.2f;
         this.player = player;
@@ -42,7 +50,12 @@ using GXPEngine.Core;
 
         gravity = 0.05f;
         acceleration = 0.02f;
-        }
+
+
+        crateCollider = new AABB(this, position, colliderWidth, colliderHeight);
+        engine = ColliderManager.main;
+        engine.AddSolidCollider(crateCollider);
+    }
 
 
         void Update()
@@ -73,7 +86,7 @@ using GXPEngine.Core;
                 {
                     if (this.x < player.x)
                     {
-                    velocity.x += acceleration;
+                    velocity.x -= acceleration;
                     }
                     else if (this.x > player.x)
                     {
