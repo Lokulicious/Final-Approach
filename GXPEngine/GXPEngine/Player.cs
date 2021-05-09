@@ -46,13 +46,16 @@ using Physics;
         this.x = startPosition.x;
         this.y = startPosition.y;
 
+        float colliderWidth = (width / 2) - 20;
+        float colliderHeight = (height / 2) - 20;
+
 
         vfx = new SoundChannel(0);
 
         jumpSound = new Sound("Jump_Sound.wav", false, false);
 
 
-        playerCollider = new AABB(this, startPosition, width / 2, height / 2);
+        playerCollider = new AABB(this, startPosition, colliderWidth, colliderHeight);
         engine = ColliderManager.main;
         engine.AddTriggerCollider(playerCollider);
 

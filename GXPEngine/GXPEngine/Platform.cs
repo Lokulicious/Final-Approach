@@ -24,6 +24,9 @@ using Physics;
         this.x = position.x;
         this.y = position.y;
 
+        float colliderWidth = (width / 2) - 20;
+        float colliderHeight = (height / 2) - 20;
+
 
         groundPos.x = position.x - width / 2;
         groundPos.y = position.y - (height / 2 + 10);
@@ -33,7 +36,7 @@ using Physics;
         this.player = player;
 
 
-        platformCollider = new AABB(this, position, width / 2, height / 2);
+        platformCollider = new AABB(this, position, colliderWidth, colliderHeight);
         groundCheck = new HorizontalLineSegment(this, groundPos, width);
         engine = ColliderManager.main;
         engine.AddSolidCollider(platformCollider);
@@ -70,6 +73,9 @@ using Physics;
         {
             Player player = other as Player;
             player.isGrounded = true;
+
+            Console.WriteLine("Player Collision");
+
 /*            if (player.y + 32 < this.y)
             {
                 player.y = this.y - 64;
