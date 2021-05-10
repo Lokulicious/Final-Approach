@@ -102,6 +102,7 @@
     <Compile Include="PhysicsEngine\Colliders\HorizontalLineSegment.cs" />
     <Compile Include="PhysicsEngine\CollisionInfo.cs" />
     <Compile Include="PhysicsEngine\Vec2.cs" />
+    <Compile Include="Wall.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PolaritySwitcher.cs" />

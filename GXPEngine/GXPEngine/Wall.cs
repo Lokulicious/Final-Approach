@@ -6,19 +6,19 @@ using GXPEngine;
 using Physics;
 
 
-    class Platform : Sprite
+    class Wall : Sprite
     {
     private Player player;
 
 
-    Collider platformCollider;
+    Collider wallCollider;
     ColliderManager engine;
 
 
-    public Platform(Player player, Vec2 position, float widthScale, float heightScale) : base("colors.png")
+    public Wall(Player player, Vec2 position, float heightScale) : base("colors.png")
     {
         SetOrigin(width / 2, height / 2);
-        SetScaleXY(widthScale, heightScale);
+        SetScaleXY(1, heightScale);
 
         this.x = position.x;
         this.y = position.y;
@@ -26,14 +26,14 @@ using Physics;
 
 
         float colliderWidth = (width / 2);
-        float colliderHeight = (height / 2) - 1;
+        float colliderHeight = (height / 2) - 2;
 
         this.player = player;
 
 
-        platformCollider = new AABB(this, position, colliderWidth, colliderHeight);
+        wallCollider = new AABB(this, position, colliderWidth, colliderHeight);
         engine = ColliderManager.main;
-        engine.AddSolidCollider(platformCollider);
+        engine.AddSolidCollider(wallCollider);
     }
 
 

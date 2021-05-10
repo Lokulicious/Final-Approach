@@ -63,7 +63,7 @@ using Physics;
 
 
         SetOrigin(width / 2, height / 2);
-        SetScaleXY(0.3f, 0.3f);
+        SetScaleXY(0.25f, 0.25f);
 
         this.x = startPosition.x;
         this.y = startPosition.y;
@@ -94,7 +94,7 @@ using Physics;
         walkAccel = 75;
         airAccel = 30;
         decel = 0.8f;
-        jumpHeight = 150;
+        jumpHeight = 180;
         gravity = 0.35f;
         pullCharge = 300f;
         pushCharge = 300f;
@@ -102,7 +102,7 @@ using Physics;
 
 
         magnetRange = 250;
-        yRange = 20;
+        yRange = 40;
 
         /*        idle = true;
                 walking = false;
@@ -218,13 +218,13 @@ using Physics;
         {
             Velocity.x = -speed;
             animState = 2;
-            SetScaleXY(-0.3f, 0.3f);
+            SetScaleXY(-0.25f, 0.25f);
         }
         else if (Input.GetKey(Key.D))
         {
             Velocity.x = speed;
             animState = 2;
-            SetScaleXY(0.3f, 0.3f);
+            SetScaleXY(0.25f, 0.25f);
         }
         else if(isGrounded)
         {
@@ -276,14 +276,14 @@ using Physics;
             float range = this.y - crate.y;
 
             float dist = crate.DistanceTo(this);
-            if (dist < magnetRange && dist < lowestDistance && range > -yRange && range < yRange)
+            if (dist < magnetRange && dist < lowestDistance/* && range > -yRange && range < yRange*/)
             {
                 lowestDistance = dist;
                 targetCrate = crate;
                 crate.isNearest = true;
                 crate.SetCycle(1, 1);
             }
-            else if (dist > magnetRange || dist > lowestDistance && range < -yRange || range > yRange)
+            else if (dist > magnetRange || dist > lowestDistance/* && range < -yRange || range > yRange*/)
             {
                 crate.isNearest = false;
                 crate.SetCycle(0, 1);
