@@ -276,14 +276,14 @@ using Physics;
             float range = this.y - crate.y;
 
             float dist = crate.DistanceTo(this);
-            if (dist < magnetRange && dist < lowestDistance/* && range > -yRange && range < yRange*/)
+            if (dist < magnetRange && dist < lowestDistance && range > -yRange && range < yRange)
             {
                 lowestDistance = dist;
                 targetCrate = crate;
                 crate.isNearest = true;
                 crate.SetCycle(1, 1);
             }
-            else if (dist > magnetRange || dist > lowestDistance/* && range < -yRange || range > yRange*/)
+            else if (dist > magnetRange || dist > lowestDistance && range < -yRange || range > yRange)
             {
                 crate.isNearest = false;
                 crate.SetCycle(0, 1);

@@ -15,17 +15,17 @@ using Physics;
     ColliderManager engine;
 
 
-    public Platform(Player player, Vec2 position, float widthScale, float heightScale) : base("colors.png")
+    public Platform(Player player, Vec2 position, float widthScale, float heightScale) : base("platform.png")
     {
         SetOrigin(width / 2, height / 2);
-        SetScaleXY(widthScale, heightScale);
+        SetScaleXY(widthScale / 35, heightScale / 6);
 
         this.x = position.x;
         this.y = position.y;
 
 
 
-        float colliderWidth = (width / 2);
+        float colliderWidth = (width / 2) + 1;
         float colliderHeight = (height / 2) - 1;
 
         this.player = player;
