@@ -28,6 +28,7 @@ class PolaritySwitcher : Sprite
         {
             player.polaritySwitch = true;
             isUsed = true;
+            Console.WriteLine("switch");
         }
     }
 }

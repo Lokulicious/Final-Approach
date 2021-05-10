@@ -6,21 +6,22 @@ using GXPEngine;
 using Physics;
 
 
-    class Player : Sprite
+    class Player : AnimationSprite
     {
 
 
-
+    //magnetism
     public bool isActive;
     public bool isPulling;
     public bool isPushing;
     public bool polaritySwitch;
 
+
+    //sound
     Sound jumpSound;
     SoundChannel vfx;
 
-    public GameObject[] crates;
-
+   
 
     //Movement
 
@@ -42,19 +43,32 @@ using Physics;
     ColliderManager engine;
 
 
-
-
     //crate selection
-
+    public GameObject[] crates;
     public GameObject targetCrate;
     float magnetRange;
+    float yRange;
+    bool inYRange;
+    float yDist;
+
+    //animation
+    public int animState;
+/*    bool idle;
+    bool walking;
+    bool jumping;*/
 
 
-    public Player(Vec2 startPosition, int amountOfCrates) : base("square.png") 
+    public Player(Vec2 startPosition, int amountOfCrates) : base("character.png", 8, 5) 
     {
+
+
         SetOrigin(width / 2, height / 2);
+        SetScaleXY(0.3f, 0.3f);
+
         this.x = startPosition.x;
         this.y = startPosition.y;
+
+        SetCycle(9, 21);
 
 
         vfx = new SoundChannel(0);
@@ -76,17 +90,27 @@ using Physics;
 
 
         isGrounded = true;
-        speed = 0;
+        speed = 7f;
         walkAccel = 75;
         airAccel = 30;
         decel = 0.8f;
         jumpHeight = 150;
         gravity = 0.35f;
-        pullCharge = 100f;
-        pushCharge = 100f;
+        pullCharge = 300f;
+        pushCharge = 300f;
         discharge = 1f;
 
+
         magnetRange = 250;
+        yRange = 20;
+
+        /*        idle = true;
+                walking = false;
+                jumping = false;*/
+
+        animState = 1;
+
+
     }
 
 
@@ -95,6 +119,25 @@ using Physics;
         magnetism();
         movement();
         CheckNearest();
+        Animation();
+    }
+
+
+    void Animation()
+    {
+        switch (animState)
+        {
+            case 1:
+                SetCycle(9, 21, 7);
+                break;
+            case 2:
+                SetCycle(0, 9, 5);
+                break;
+            case 3:
+                SetCycle(31, 4, 5);
+                break;
+        }
+        Animate();
     }
 
 
@@ -161,7 +204,9 @@ using Physics;
         else
         {
             Velocity.y += gravity;
+            animState = 3;
         }
+
 
 
 
@@ -171,20 +216,27 @@ using Physics;
 
         if (Input.GetKey(Key.A))
         {
-            speed = -3f;
-            Velocity.x = -10;
+            Velocity.x = -speed;
+            animState = 2;
+            SetScaleXY(-0.3f, 0.3f);
         }
         else if (Input.GetKey(Key.D))
         {
-            speed = 3f;
-            Velocity.x = 10;
+            Velocity.x = speed;
+            animState = 2;
+            SetScaleXY(0.3f, 0.3f);
+        }
+        else if(isGrounded)
+        {
+            Velocity.x = 0;
+            animState = 1;
         }
 
 
 
         if (Velocity.x != 0)
         {
-            if (Velocity.x >= 0)
+            if (Velocity.x > 0)
             {
                 Velocity.x -= decel;
             }
@@ -221,22 +273,21 @@ using Physics;
         
         foreach (Crate crate in crates)
         {
+            float range = this.y - crate.y;
+
             float dist = crate.DistanceTo(this);
-            if (dist < magnetRange && dist < lowestDistance)
+            if (dist < magnetRange && dist < lowestDistance && range > -yRange && range < yRange)
             {
                 lowestDistance = dist;
                 targetCrate = crate;
                 crate.isNearest = true;
                 crate.SetCycle(1, 1);
             }
-            else if (dist > magnetRange || dist > lowestDistance)
+            else if (dist > magnetRange || dist > lowestDistance && range < -yRange || range > yRange)
             {
                 crate.isNearest = false;
                 crate.SetCycle(0, 1);
             }
-
-
-            Console.WriteLine(lowestDistance);
         }
     }
 

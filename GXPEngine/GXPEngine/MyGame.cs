@@ -6,24 +6,26 @@ using GXPEngine;
 
 public class MyGame : Game
 {
+
+	Background bg;
+
 	Player player;
 
 	int amountOfCrates;
 
-
 	Crate crate1;
 	Crate crate2;
 
-	public MyGame() : base(1920, 1080, false)
+	public MyGame() : base(1920, 1080, true)
 	{
+		Background bg = new Background();
+		AddChild(bg);
+
 		Player player = new Player(new Vec2(game.width / 2, 200), amountOfCrates);
 		AddChild(player);
 
-
-		ChargeBar PullChargeBar = new ChargeBar(player, true, 50, "barblue.png");
-		AddChild(PullChargeBar);
 		
-		ChargeBar PushChargeBar = new ChargeBar(player, false, 100, "barred.png");
+		ChargeBar PushChargeBar = new ChargeBar(player, true);
 		AddChild(PushChargeBar);
 
 		Platform platform = new Platform(player, new Vec2(250, 400));
@@ -38,7 +40,7 @@ public class MyGame : Game
 		crate2 = new Crate(player, new Vec2(700, -100));
 		AddChild(crate2);
 
-		PolaritySwitcher polarity = new PolaritySwitcher(player, 500, 500);
+		PolaritySwitcher polarity = new PolaritySwitcher(player, 1050, 500);
 		AddChild(polarity);
 
 		amountOfCrates = 2;
