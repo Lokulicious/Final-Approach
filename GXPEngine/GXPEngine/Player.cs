@@ -19,6 +19,8 @@ using Physics;
     Sound jumpSound;
     SoundChannel vfx;
 
+    public GameObject[] crates;
+
 
     //Movement
 
@@ -40,7 +42,15 @@ using Physics;
     ColliderManager engine;
 
 
-    public Player(Vec2 startPosition) : base("square.png") 
+
+
+    //crate selection
+
+    public GameObject targetCrate;
+    float magnetRange;
+
+
+    public Player(Vec2 startPosition, int amountOfCrates) : base("square.png") 
     {
         SetOrigin(width / 2, height / 2);
         this.x = startPosition.x;
@@ -57,6 +67,10 @@ using Physics;
         engine.AddTriggerCollider(playerCollider);
 
 
+        crates = new GameObject[amountOfCrates];
+
+
+
         isActive = true;
         isPulling = true;
 
@@ -66,11 +80,13 @@ using Physics;
         walkAccel = 75;
         airAccel = 30;
         decel = 0.8f;
-        jumpHeight = 100;
+        jumpHeight = 150;
         gravity = 0.35f;
         pullCharge = 100f;
         pushCharge = 100f;
         discharge = 1f;
+
+        magnetRange = 250;
     }
 
 
@@ -78,6 +94,7 @@ using Physics;
     {
         magnetism();
         movement();
+        CheckNearest();
     }
 
 
@@ -135,13 +152,10 @@ using Physics;
     {
         if (isGrounded)
         {
-            Console.WriteLine("grounded");
-
             if (Input.GetKeyDown(Key.SPACE)) 
             {
                 Velocity.y = -Mathf.Sqrt(2 * jumpHeight * gravity);
                 jumpSound.Play(false, 0);
-                Console.WriteLine("Jumping");
             }
         }
         else
@@ -197,6 +211,34 @@ using Physics;
         isGrounded = false;
     }
 
+
+
+
+    void CheckNearest()
+    {
+
+        float lowestDistance = 50000;
+        
+        foreach (Crate crate in crates)
+        {
+            float dist = crate.DistanceTo(this);
+            if (dist < magnetRange && dist < lowestDistance)
+            {
+                lowestDistance = dist;
+                targetCrate = crate;
+                crate.isNearest = true;
+                crate.SetCycle(1, 1);
+            }
+            else if (dist > magnetRange || dist > lowestDistance)
+            {
+                crate.isNearest = false;
+                crate.SetCycle(0, 1);
+            }
+
+
+            Console.WriteLine(lowestDistance);
+        }
+    }
 
 
 

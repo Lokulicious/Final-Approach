@@ -5,7 +5,7 @@ using System.Text;
 using GXPEngine;
 using Physics;
 
-    class Crate : Sprite
+    class Crate : AnimationSprite
     {
 
     private Player player;
@@ -24,12 +24,20 @@ using Physics;
 
     public Vec2 velocity;
 
-        public Crate(Player player, Vec2 position) : base("square.png")
+    public bool isNearest;
+    public float crateRange;
+    public float playerDistance;
+
+
+        public Crate(Player player, Vec2 position) : base("squareanim.png", 2, 1)
         {
         SetOrigin(width / 2, height / 2);
         gravity = 0.05f;
 
         isTouching = false;
+
+        SetCycle(0, 1);
+
 
         pushStart = false;
 
@@ -55,21 +63,25 @@ using Physics;
         crateCollider = new AABB(this, position, colliderWidth, colliderHeight);
         engine = ColliderManager.main;
         engine.AddSolidCollider(crateCollider);
+        engine.AddTriggerCollider(crateCollider);
     }
 
 
         void Update()
         {
+
+
             movement();
             isTouching = false;
             isGrounded = false;
-
+        ChangeNearestColor();
+        GetDistanceToPlayer();
         }
 
 
         void movement()
         {
-            if (player.isActive && !isTouching)
+            if (player.isActive && isNearest)
             {
                 if (player.isPulling)
                 {
@@ -115,23 +127,70 @@ using Physics;
 
         }
 
-
-
-
-
-        if (isGrounded)
-        {
-            velocity.y = 0;
-        }
-        else
+        if (!isGrounded)
         {
             velocity.y += gravity;
         }
         isGrounded = false;
 
-        Translate(velocity.x * Time.deltaTime, velocity.y * Time.deltaTime);
+        /*        Translate(velocity.x * Time.deltaTime, velocity.y * Time.deltaTime);*/
 
-       }
+
+        engine.MoveUntilCollision(crateCollider, new Vec2(velocity.x, 0)); //move collider on x axis
+        engine.MoveUntilCollision(crateCollider, new Vec2(0, velocity.y)); //move collider on y axis
+
+
+        x = crateCollider.position.x;
+        y = crateCollider.position.y;
+    }
+
+
+
+
+
+
+    void GetDistanceToPlayer()
+    {
+        if (this.x < player.x)
+        {
+            playerDistance = player.x - this.x;
+        }
+        else if (this.x > player.x)
+        {
+            playerDistance = this.x - player.x;
+        }
+    }
+
+
+
+
+    void ChangeNearestColor()
+    {
+
+
+        //testcode to see if color change works
+        /*        if (Input.GetKey(Key.F))
+                {
+                    isNearest = true;
+                }
+                else
+                {
+                    isNearest = false;
+                }*/
+
+        //change color if nearest
+        if (isNearest)
+        {
+            SetCycle(1, 1);
+        }
+        else
+        {
+            SetCycle(0, 1);
+        }
+
+        
+    }
+
 
 
     void OnCollision(GameObject Other)
