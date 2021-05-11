@@ -50,7 +50,7 @@ class Level : GameObject
 	void GenerateLevel1()
     {
 		//add bg
-		Background bg = new Background();
+		Background bg = new Background("background_concept.png");
 		AddChild(bg);
 
 		//add player
@@ -88,19 +88,16 @@ class Level : GameObject
 	void GenerateLeve2()
     {
 		//add bg
-		Background bg = new Background();
+		Background bg = new Background("background_concept.png");
 		AddChild(bg);
 
 		//add player
 		Player player = new Player(new Vec2(70, game.height - 80), amountOfCrates);
-		AddChild(player);
+		
 
-		//add charge bar
-		ChargeBar PushChargeBar = new ChargeBar(player, true);
-		AddChild(PushChargeBar);
 
 		//add floor
-		Platform floor = new Platform(player, new Vec2(game.width / 2, game.height + 21.5f), 50, 1);
+		Platform floor = new Platform(player, new Vec2(game.width / 2, game.height + 10f), 50, 1);
 		AddChild(floor);
 
 		//add platforms
@@ -131,7 +128,7 @@ class Level : GameObject
 
 
 		//add crates
-		crate1 = new Crate(player, new Vec2(740, game.height - 350), "squareanim.png");
+		crate1 = new Crate(player, new Vec2(770, game.height - 350), "squareanim.png");
 		crate2 = new Crate(player, new Vec2(1050, game.height - 600), "squareanim.png");
 		crate3 = new Crate(player, new Vec2(1350, game.height - 364), "squareanim.png");
 		AddChild(crate1);
@@ -144,14 +141,24 @@ class Level : GameObject
 /*        dcrate1 = new DoubleCrate(player, new Vec2(0, 0));*/
 
         //add polarity switch
-        PolaritySwitcher ps = new PolaritySwitcher(player, 550, game.height - 650);
+        PolaritySwitcher ps = new PolaritySwitcher(player, 505, game.height - 683);
 		AddChild(ps);
 
 
-/*        Wall wall1 = new Wall(player, new Vec2(850, game.height - 500), 3);
-        AddChild(wall1);*/
+        //add goal
+        Goal goal = new Goal(player, new Vec2(1625, game.height - 710));
+        AddChild(goal);
 
-        amountOfCrates = 4;
+		AddChild(player);
+
+		//add charge bar
+		ChargeBar PushChargeBar = new ChargeBar(player, true);
+		AddChild(PushChargeBar);
+
+		/*        Wall wall1 = new Wall(player, new Vec2(850, game.height - 500), 3);
+                AddChild(wall1);*/
+
+		amountOfCrates = 4;
         player.crates = GetCrates();
     }
 
@@ -196,8 +203,8 @@ class Level : GameObject
 				crate.LateDestroy();
 			}
         }
-
 	}
+
 
 
 }

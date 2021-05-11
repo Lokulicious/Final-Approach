@@ -51,14 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrowButton.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="ChargeBar.cs" />
+    <Compile Include="Cursor.cs" />
     <Compile Include="DoubleCrate.cs" />
     <Compile Include="Crate.cs" />
+    <Compile Include="Goal.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
     <Compile Include="Level.cs" />
-    <Compile Include="Menu.cs" />
+    <Compile Include="LevelButton.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />
@@ -103,6 +107,9 @@
     <Compile Include="PhysicsEngine\Colliders\HorizontalLineSegment.cs" />
     <Compile Include="PhysicsEngine\CollisionInfo.cs" />
     <Compile Include="PhysicsEngine\Vec2.cs" />
+    <Compile Include="PlayButton.cs" />
+    <Compile Include="Stage1Select.cs" />
+    <Compile Include="Stage2Locked.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />

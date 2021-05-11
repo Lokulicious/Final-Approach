@@ -58,7 +58,8 @@ using Physics;
     bool jumping;*/
 
 
-    public Player(Vec2 startPosition, int amountOfCrates) : base("character.png", 8, 5) 
+
+    public Player(Vec2 startPosition, int amountOfCrates) : base("character_final.png", 8, 6) 
     {
 
 
@@ -128,6 +129,7 @@ using Physics;
         switch (animState)
         {
             case 1:
+                /*                SetCycle(35, 9, 6);*/
                 SetCycle(9, 21, 7);
                 break;
             case 2:
@@ -135,6 +137,10 @@ using Physics;
                 break;
             case 3:
                 SetCycle(31, 4, 5);
+                break;
+            case 4:
+                SetCycle(35, 9, 5);
+                Console.WriteLine("slut");
                 break;
         }
         Animate();
@@ -144,7 +150,7 @@ using Physics;
 
     void magnetism()
     {
-
+/*        Console.WriteLine(animState);*/
 
         float charge = isPulling ? pullCharge : pushCharge;
 
@@ -174,13 +180,14 @@ using Physics;
 
         }
 
-
+        Console.WriteLine(polaritySwitch);
 
         if (polaritySwitch && isPulling)
         {
             isPulling = false;
             isPushing = true;
             polaritySwitch = false;
+            Console.WriteLine("switch");
         }
         else if (polaritySwitch && isPushing)
         {
@@ -226,7 +233,7 @@ using Physics;
             animState = 2;
             SetScaleXY(0.25f, 0.25f);
         }
-        else if(isGrounded)
+        else if(isGrounded && polaritySwitch == false)
         {
             Velocity.x = 0;
             animState = 1;

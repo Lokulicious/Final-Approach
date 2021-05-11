@@ -6,9 +6,10 @@ using GXPEngine;
 
 class Background : Sprite
 {
-    public Background() : base("background_concept.png")
+    public Background(string filename) : base(filename)
     {
-
+        width = 1920;
+        height = 1080;
     }
 
 }
