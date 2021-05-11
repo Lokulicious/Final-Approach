@@ -97,7 +97,7 @@ using Physics;
         jumpHeight = 180;
         gravity = 0.35f;
         pullCharge = 300f;
-        pushCharge = 300f;
+        pushCharge = 310f;
         discharge = 1f;
 
 

@@ -108,11 +108,11 @@ class Level : GameObject
 		Platform platform2 = new Platform(player, new Vec2(640, game.height - 280), 6, 1);
 		Platform platform3 = new Platform(player, new Vec2(550, game.height - 600), 2f, 1);
 		Platform platform4 = new Platform(player, new Vec2(1000, game.height - 530), 3f, 1);
-		Platform platform5 = new Platform(player, new Vec2(1350, game.height - 280), 3f, 1);
-		Platform platform6 = new Platform(player, new Vec2(1400, game.height - 490), 1f, 0.7f);
-		Platform platform7 = new Platform(player, new Vec2(1480, game.height - 535), 1f, 0.7f);
-		Platform platform8 = new Platform(player, new Vec2(1530, game.height - 580), 1f, 0.7f);
-		Platform platform9 = new Platform(player, new Vec2(1625	, game.height - 625), 2f, 0.7f);
+		Platform platform5 = new Platform(player, new Vec2(1350, game.height - 280), 4f, 1);
+		Platform platform6 = new Platform(player, new Vec2(1400, game.height - 530), 1f, 0.7f);
+		Platform platform7 = new Platform(player, new Vec2(1480, game.height - 575), 1f, 0.7f);
+		Platform platform8 = new Platform(player, new Vec2(1530, game.height - 620), 1f, 0.7f);
+		Platform platform9 = new Platform(player, new Vec2(1625	, game.height - 665), 2f, 0.7f);
 		AddChild(platform1);
 		AddChild(platform2);
 		AddChild(platform3);
@@ -133,7 +133,7 @@ class Level : GameObject
 		//add crates
 		crate1 = new Crate(player, new Vec2(740, game.height - 350), "squareanim.png");
 		crate2 = new Crate(player, new Vec2(1050, game.height - 600), "squareanim.png");
-		crate3 = new Crate(player, new Vec2(1450, game.height - 364), "squareanim.png");
+		crate3 = new Crate(player, new Vec2(1350, game.height - 364), "squareanim.png");
 		AddChild(crate1);
 		AddChild(crate2);
 		AddChild(crate3);
