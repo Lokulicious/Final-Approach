@@ -20,6 +20,11 @@ class Level : GameObject
     Crate crate2;
     Crate crate3;
 
+	Crate doubleCrate1;
+
+/*	DoubleCrate dcrate1;*/
+
+
     public Level(int _levelNumber)
     {
         levelNumber = _levelNumber;
@@ -64,8 +69,8 @@ class Level : GameObject
 		AddChild(platform2);
 
 		//add crates
-		crate1 = new Crate(player, new Vec2(450, -100));
-		crate2 = new Crate(player, new Vec2(700, -100));
+		crate1 = new Crate(player, new Vec2(450, -100), "squareanim.png");
+		crate2 = new Crate(player, new Vec2(700, -100), "squareanim.png");
 		AddChild(crate1);
 		AddChild(crate2);
 
@@ -126,23 +131,27 @@ class Level : GameObject
 
 
 		//add crates
-		crate1 = new Crate(player, new Vec2(740, game.height - 350));
-		crate2 = new Crate(player, new Vec2(1050, game.height - 600));
-		crate3 = new Crate(player, new Vec2(1450, game.height - 364));
+		crate1 = new Crate(player, new Vec2(740, game.height - 350), "squareanim.png");
+		crate2 = new Crate(player, new Vec2(1050, game.height - 600), "squareanim.png");
+		crate3 = new Crate(player, new Vec2(1450, game.height - 364), "squareanim.png");
 		AddChild(crate1);
 		AddChild(crate2);
 		AddChild(crate3);
 
 
-		//add polarity switch
-		PolaritySwitcher ps = new PolaritySwitcher(player, 550, game.height - 650);
+		//create double crates
+		doubleCrate1 = new Crate(player, new Vec2(0, 0), "doublesquareanim.png");
+/*        dcrate1 = new DoubleCrate(player, new Vec2(0, 0));*/
+
+        //add polarity switch
+        PolaritySwitcher ps = new PolaritySwitcher(player, 550, game.height - 650);
 		AddChild(ps);
 
 
 /*        Wall wall1 = new Wall(player, new Vec2(850, game.height - 500), 3);
         AddChild(wall1);*/
 
-        amountOfCrates = 3;
+        amountOfCrates = 4;
         player.crates = GetCrates();
     }
 
@@ -166,8 +175,29 @@ class Level : GameObject
 		crateList[0] = crate1;
 		crateList[1] = crate2;
 		crateList[2] = crate3;
+		crateList[3] = doubleCrate1;
+
 
 		return crateList;
 	}
+
+
+	void SwitchCrates()
+    {
+/*		crateList = new GameObject[amountOfCrates];
+		crateList = GetCrates();*/
+
+        foreach (Crate crate in player.crates)
+        {
+            if (crate.isTouchingCrate)
+            {
+				doubleCrate1 = new Crate(player, new Vec2(crate.x, crate.y), "doublesquareanim.png");
+				AddChild(doubleCrate1);
+				crate.LateDestroy();
+			}
+        }
+
+	}
+
 
 }

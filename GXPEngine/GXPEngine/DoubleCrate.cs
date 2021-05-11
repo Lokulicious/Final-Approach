@@ -5,7 +5,7 @@ using System.Text;
 using GXPEngine;
 using Physics;
 
-    class Crate : AnimationSprite
+    class DoubleCrate : AnimationSprite
     {
 
     private Player player;
@@ -21,26 +21,20 @@ using Physics;
     bool isTouching;
     public float gravity;
     float acceleration;
-    public bool isTouchingCrate;
-
 
     public Vec2 velocity;
 
     public bool isNearest;
     public float crateRange;
     public float playerDistance;
-    
 
 
-        public Crate(Player player, Vec2 position, string filename) : base(filename, 2, 1)
+        public DoubleCrate(Player player, Vec2 position) : base("doublesquareanim.png", 2, 1)
         {
-
-
         SetOrigin(width / 2, height / 2);
         gravity = 0.05f;
 
         isTouching = false;
-        isTouchingCrate = false;
 
         SetCycle(0, 1);
 
@@ -64,7 +58,6 @@ using Physics;
 
         gravity = 0.05f;
         acceleration = 0.02f;
-
 
 
         crateCollider = new AABB(this, position, colliderWidth, colliderHeight);
@@ -200,9 +193,6 @@ using Physics;
 
 
 
-
-
-
     void OnCollision(GameObject Other)
     {
         if (Other is Player)
@@ -221,21 +211,9 @@ using Physics;
         if (Other is Crate)
         {
             isGrounded = true;
-
-            if (this.y < Other.y)
-            {
-                isTouchingCrate = true;
-            }
-            else if (this.y > Other.y)
-            {
-                this.x = Other.x;
-            }
-
+            this.velocity.x = 0;
+            this.velocity.y = 0;
         }
     }
-
-
-
-
 
     }
