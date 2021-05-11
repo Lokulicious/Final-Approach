@@ -154,7 +154,7 @@ using Physics;
 
         float charge = isPulling ? pullCharge : pushCharge;
 
-        if (Input.GetKey(Key.R) && isGrounded && charge > 0f)
+        if (Input.GetKey(Key.LEFT_SHIFT) && isGrounded && charge > 0f)
         {
             isActive = true;
         }

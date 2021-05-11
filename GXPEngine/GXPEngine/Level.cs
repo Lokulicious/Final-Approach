@@ -128,9 +128,9 @@ class Level : GameObject
 
 
 		//add crates
-		crate1 = new Crate(player, new Vec2(770, game.height - 350), "squareanim.png");
-		crate2 = new Crate(player, new Vec2(1050, game.height - 600), "squareanim.png");
-		crate3 = new Crate(player, new Vec2(1350, game.height - 364), "squareanim.png");
+		crate1 = new Crate(player, new Vec2(770, game.height - 350), "newcrate.png");
+		crate2 = new Crate(player, new Vec2(1050, game.height - 600), "newcrate.png");
+		crate3 = new Crate(player, new Vec2(1350, game.height - 364), "newcrate.png");
 		AddChild(crate1);
 		AddChild(crate2);
 		AddChild(crate3);

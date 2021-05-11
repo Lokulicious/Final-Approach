@@ -37,6 +37,7 @@ using Physics;
 
 
         SetOrigin(width / 2, height / 2);
+        SetScaleXY(0.15f, 0.15f);
         gravity = 0.05f;
 
         isTouching = false;

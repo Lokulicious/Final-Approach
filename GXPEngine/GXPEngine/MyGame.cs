@@ -11,12 +11,16 @@ public class MyGame : Game
 	Level level1;
 	Level level2;
 
+	Cursor cursor;
 
-
-	public MyGame() : base(1920, 1080, false)
+	public MyGame() : base(1920, 1080, true)
 	{
 		mainMenu = new MainMenu();
 		AddChild(mainMenu);
+
+
+		cursor = new Cursor();
+		AddChild(cursor);
 
         /*        level1 = new Level(1);
                 AddChild(level1);
