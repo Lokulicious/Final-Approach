@@ -9,7 +9,7 @@ class Goal : AnimationSprite
 {
     private Player player;
 
-    public Goal(Player _player, Vec2 position) : base("animflags.png", 8, 2)
+    public Goal(Player _player, Vec2 position) : base("flagnew.png", 4, 1)
     {
         SetOrigin(width / 2, height / 2);
         SetCycle(0, 8);

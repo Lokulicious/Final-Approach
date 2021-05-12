@@ -57,6 +57,11 @@ using Physics;
     }
 
 
+    void OnDestroy()
+    {
+        engine.RemoveSolidCollider(platformCollider);
+    }
+
 
 
     }

@@ -28,9 +28,10 @@ class MainMenu : GameObject
     bool isStarting;
 
 
+
     //levels
     Level level1;
-    Level level2;
+    Level2 level2;
 
     //cursor
     Cursor cursor;
@@ -44,7 +45,8 @@ class MainMenu : GameObject
         cursor = new Cursor();
         AddChild(cursor);
 
-        level1 = new Level(2);
+        level1 = new Level();
+        level2 = new Level2();
 
         stage = 1;
         menuState = 1;
@@ -95,7 +97,11 @@ class MainMenu : GameObject
         switch (stage)
         {
             case 1:
-/*                RemoveChild(levelSelectorbg2);*/
+                foreach (GameObject child in GetChildren())
+                {
+                    child.LateDestroy();
+                }
+                /*                RemoveChild(levelSelectorbg2);*/
                 levelSelectorbg1 = new Background("Stage_1.png");
                 ab = new ArrowButton(new Vec2(game.width - 100, game.height / 2), false);
                 st1l = new Stage1Select(game.width / 2, game.height / 2);
@@ -116,10 +122,20 @@ class MainMenu : GameObject
                     isStarting = true;
                     stage = 3;
                 }
+                
+                if (levelButton2.HitTestPoint(Input.mouseX, Input.mouseY) && Input.GetMouseButtonDown(0))
+                {
+                    isStarting = true;
+                    stage = 4;
+                }
 
 
                 break;
             case 2:
+                foreach (GameObject child in GetChildren())
+                {
+                    child.LateDestroy();
+                }
                 RemoveChild(levelSelectorbg1);
                 levelSelectorbg2 = new Background("Stage_2.png");
                 st2l = new Stage2Locked(new Vec2(game.width /2, game.height / 2));
@@ -129,7 +145,25 @@ class MainMenu : GameObject
                 AddChild(ab);
                 break;
             case 3:
+/*                foreach (GameObject child in GetChildren())
+                {
+                    child.LateDestroy();
+                }*/
+/*                level2.LateDestroy();*/
                 AddChild(level1);
+                if (!level1.hasGenerated)
+                {
+                    level1.GenerateLeve2();
+                }
+                break;
+            case 4:
+                /*                level1.LateDestroy();*/
+                AddChild(level2);
+                if (!level2.hasGenerated)
+                {
+                    level2.GenerateLevel();
+                }
+
                 break;
         }
 
@@ -192,11 +226,7 @@ class MainMenu : GameObject
         }
     }
 
-    void Level2()
-    {
-        level2 = new Level(2);
-        AddChild(level2);
-    }
+
 
 
     

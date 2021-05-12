@@ -60,6 +60,7 @@
     <Compile Include="Goal.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="Level2.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="LevelButton.cs" />
     <Compile Include="MainMenu.cs" />
